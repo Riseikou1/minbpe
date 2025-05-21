@@ -83,7 +83,7 @@ class SimpleBytePairEncoding:
 def bpe_encode(
     mergeable_ranks: dict[bytes, int], input: bytes, visualise: str | None = "colour"
 ) -> list[int]:
-    parts = [bytes([b]) for b in input]
+    parts = [bytes([b]) for b in input]  # this thing actually does byte shuffling.
     while True:
         # See the intermediate merges play out!
         if visualise:
@@ -124,7 +124,7 @@ def bpe_train(
         raise ValueError("vocab_size must be at least 256, so we can encode all bytes")
     ranks = {}
     for i in range(2**8):
-        ranks[bytes([i])] = i
+        ranks[bytes([i])] = i  # ranks i bol manaihaar bol byte_shuffled vocab yum.
 
     # Splinter up our data into lists of bytes
     # data = "Hello world"
