@@ -60,7 +60,7 @@ class RegexTokenizer(Tokenizer):
             ids = [merge(chunk_ids, pair, idx) for chunk_ids in ids]
             # save the merge
             merges[pair] = idx
-            vocab[idx] = vocab[pair[0]] + vocab[pair[1]]
+            vocab[idx] = vocab[pair[0]] + vocab[pair[1]] # vocab bol neg yosondoo, merges-iin inverse shahuu l ed. merges ni ehnii 256n sda baihguigeere l yalgatai gehimu.
             # prints
             if verbose:
                 print(f"merge {i+1}/{num_merges}: {pair} -> {idx} ({vocab[idx]}) had {stats[pair]} occurrences")

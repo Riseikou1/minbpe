@@ -17,7 +17,7 @@ class SimpleBytePairEncoding:
         # A dictionary mapping token bytes to their ranks. The ranks correspond to merge priority
         self.mergeable_ranks = mergeable_ranks
 
-        self._decoder = {token: token_bytes for token_bytes, token in mergeable_ranks.items()}
+        self._decoder = {token: token_bytes for token_bytes, token in mergeable_ranks.items()}  # decoder is inverse_mergeable_ranks.
         self._pat = regex.compile(pat_str)
 
     def encode(self, text: str, visualise: str | None = "colour") -> list[int]:
@@ -33,6 +33,7 @@ class SimpleBytePairEncoding:
             # Turn each word into tokens, using the byte pair encoding algorithm
             word_bytes = word.encode("utf-8")
             word_tokens = bpe_encode(self.mergeable_ranks, word_bytes, visualise=visualise)
+            # adilhan l extend hiiged shaajga murtluu, bpe_encode ni mna gpt4-iin bpe shig ed. instead of just taking min pair from self.ranks it is doing reverse engineering kinda shit lol.
             tokens.extend(word_tokens)
         return tokens
 
@@ -182,7 +183,8 @@ def bpe_train(
                     print(word)
             print("\n")
 
-    return ranks
+    return ranks  # manai regexx.py iin huvid bol merges gesen ug.
+    # tegeed bas neg yalgaatai ym ni this shit is doing reverse engineering kinda shit for creating vocab.(our bpe function from gpt4.)
 
 
 def visualise_tokens(token_values: list[bytes]) -> None:
